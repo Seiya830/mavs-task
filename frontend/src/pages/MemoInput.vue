@@ -42,7 +42,11 @@ export default {
     <!-- メモの入力内容を表示 -->
     <div v-for="(memo, index) in memos" :key="index">
       <p>メモタイトル: {{ memo.title }}</p>
+      <button>編集</button>
+      <button>削除</button>
       <p>メモ本文: {{ memo.body }}</p>
+      <button>編集</button>
+      <button>削除</button>
     </div>
   </div>
 </template>
