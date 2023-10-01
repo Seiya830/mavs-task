@@ -8,16 +8,33 @@ export default {
     };
   },
   methods: {
-    addMemo() {
-      // 入力内容を新しいオブジェクトとして memos リストに追加
-      this.memos.push({
-        title: this.memoTitle,
-        body: this.memoBody,
-      });
+    async addMemo() {
+      try {
+        // 新しいメモを作成するためのPOSTリクエストを送信
+        const response = await fetch("/api/articles/createMemo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: this.memoTitle,
+            body: this.memoBody,
+          }),
+        });
 
-      // 入力内容をクリア
-      this.memoTitle = "";
-      this.memoBody = "";
+        if (response.ok) {
+          // 入力フィールドをクリア
+          this.memoTitle = "";
+          this.memoBody = "";
+
+          const newMemo = await response.json();
+          this.memos.push(newMemo);
+        } else {
+          console.error("メモの作成中にエラーが発生しました");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
