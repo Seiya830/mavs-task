@@ -28,4 +28,18 @@ router.post('/add', async (req, res, next) => {
   }
 });
 
+/**
+ * すべてのメモを取得
+ */
+router.get('/get', async (req, res, next) => {
+  try {
+    // articleServiceを使用して、すべてのメモのリストを取得
+    const memos = await articleService.getArticleList();
+    res.status(200).json(memos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({});
+  }
+});
+
 export default router;
