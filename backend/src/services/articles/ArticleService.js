@@ -1,20 +1,21 @@
+import db from '../../models/index.js';
+
 // クラス
 class ArticleService {
   /**
    * 記事一覧取得
    * @param user_id
-   * @return ランダム値
+   * @return articles
    */
-  getArticleList(user_id) {
-    return [{}];
-  }
-  /**
-   * 記事情報取得
-   * @param user_id
-   * @return ランダム値
-   */
-  getArticle(user_id, article_id) {
-    return {};
+
+  async getArticleList(user_id) {
+      try {
+        // データベースからすべてのメモを検索し、それを返す
+        return await db.Articles.findAll();
+      } catch (error) {
+        console.error(error);
+        throw new Error("メモを取得できませんでした");
+      }
   }
 }
 
