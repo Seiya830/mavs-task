@@ -27,6 +27,10 @@ const saveMemo = async () => {
     });
     // 保存が成功した場合、APIからの応答データをログに表示
     console.log(data);
+
+    // メモを保存した後、入力欄をクリア
+    memoData.value.title = "";
+    memoData.value.content = "";
   } catch (error) {
     // エラーが発生した場合、エラーをログに表示
     console.log(error);
@@ -44,6 +48,7 @@ const saveMemo = async () => {
 
       <button type="submit">追加</button>
     </form>
+    <router-link to="/MemoList">メモ一覧ページへ</router-link>
   </div>
 </template>
 
