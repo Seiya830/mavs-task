@@ -4,11 +4,10 @@ import db from '../../models/index.js';
 class ArticleService {
   /**
    * 記事一覧取得
-   * @param user_id
    * @return articles
    */
 
-  async getArticleList(user_id) {
+  async getArticleList() {
       try {
         // データベースからすべてのメモを検索し、それを返す
         return await db.Articles.findAll();
