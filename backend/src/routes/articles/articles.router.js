@@ -4,6 +4,7 @@ import authenticate from '../../middleware/authenticate.js';
 import db from '../../models/index.js';
 
 const router = express.Router();
+const articleService = new ArticleService();
 
 /**
  * メモ新規登録
@@ -34,7 +35,8 @@ router.post('/add', async (req, res, next) => {
 router.get('/get', async (req, res, next) => {
   try {
     // ArticleServiceを使用して、すべてのメモのリストを取得
-    const memos = await ArticleService.getArticleList();
+    const memos = await articleService.getArticleList();
+    console.log(memos);
     res.status(200).json(memos);
   } catch (error) {
     console.error(error);
