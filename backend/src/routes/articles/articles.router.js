@@ -1,4 +1,4 @@
-import articleService from '../../services/articles/ArticleService.js';
+import ArticleService from '../../services/articles/ArticleService.js';
 import express from 'express';
 import authenticate from '../../middleware/authenticate.js';
 import db from '../../models/index.js';
@@ -33,8 +33,8 @@ router.post('/add', async (req, res, next) => {
  */
 router.get('/get', async (req, res, next) => {
   try {
-    // articleServiceを使用して、すべてのメモのリストを取得
-    const memos = await articleService.getArticleList();
+    // ArticleServiceを使用して、すべてのメモのリストを取得
+    const memos = await ArticleService.getArticleList();
     res.status(200).json(memos);
   } catch (error) {
     console.error(error);
