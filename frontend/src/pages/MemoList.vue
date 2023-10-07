@@ -13,7 +13,7 @@ interface Memo {
 }
 
 // メモのリストを格納するrefを作成
-const memos = ref<Memo[]>([]);
+const memos = ref<Memo[] | null>([])
 
 // APIからメモを取得する関数を定義
 const fetchMemos = async () => {
