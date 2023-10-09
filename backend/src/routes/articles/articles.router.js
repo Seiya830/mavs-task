@@ -3,7 +3,9 @@ import express from 'express';
 import authenticate from '../../middleware/authenticate.js';
 import db from '../../models/index.js';
 
+// expressのルーターを初期化
 const router = express.Router();
+// ArticleServiceのインスタンスを作成
 const articleService = new ArticleService();
 
 /**
@@ -38,6 +40,23 @@ router.get('/get', async (req, res, next) => {
     const memos = await articleService.getArticleList();
     console.log(memos);
     res.status(200).json(memos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({});
+  }
+});
+
+/**
+ * メモ削除
+ */
+router.delete('/delete/:id', async (req, res, next) => {
+  try {
+    // リクエストパラメータからメモのIDを抽出
+    const { id } = req.params;
+
+    // ArticleServiceを使用して、指定されたIDのメモを削除
+    await articleService.deleteArticle(id);
+    res.status(200).json({ message: 'メモが正常に削除されました' });
   } catch (error) {
     console.error(error);
     res.status(500).json({});
