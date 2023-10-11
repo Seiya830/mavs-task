@@ -9,7 +9,7 @@ class ArticleService {
 
   async getArticleList() {
       try {
-        // データベースからすべての記事を検索し、それを返す
+        // データベースからすべての記事を取得
         return await db.Articles.findAll();
       } catch (error) {
         console.error(error);
@@ -19,8 +19,8 @@ class ArticleService {
 
   /**
    * 記事削除
-   * @param {number} id - 削除したい記事のID
-   *  @return {number} result - 削除されたレコードの数（削除に成功すれば1、失敗すれば0）
+   * @param {number} id 削除したい記事のID
+   *  @return {number} 削除に成功すれば1、失敗すれば0を返す
    */
 
   async deleteArticle(id) {
@@ -43,6 +43,31 @@ class ArticleService {
       // エラーメッセージを表示
       throw new Error("メモの削除に失敗しました");
     }
+}
+
+/**
+ * 記事編集
+ * @param {number} id 編集したい記事のID
+ * @param {object} data 更新したい内容
+ * @return {object} article 更新された記事
+ */
+
+async editArticle(id, data) {
+  try {
+    // IDに基づいて記事を検索
+    const article = await db.Articles.findByPk(id);
+    // 編集対象の記事が存在しない場合のチェック
+    if (!article) {
+      throw new Error("指定されたIDのメモが存在しません");
+    }
+
+    // 記事内容を更新
+    await article.update(data);
+    return article;
+  } catch (error) {
+    console.error(error);
+    throw new Error("メモの編集に失敗しました");
+  }
 }
 
 }
