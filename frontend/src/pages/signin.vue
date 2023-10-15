@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useField, useForm } from 'vee-validate'
-import { useUserStore } from '~/store/user'
-import { SignInResponse } from '~/types/api'
+import { useField, useForm } from "vee-validate";
+import { useUserStore } from "~/store/user";
+import { SignInResponse } from "~/types/api";
 
 // 環境変数（.env参照）からAPIのベースURLを取得
-const $config = useRuntimeConfig()
-const apiBaseUrl = $config.public.apiBaseUrl
+const $config = useRuntimeConfig();
+const apiBaseUrl = $config.public.apiBaseUrl;
 // ユーザーストアを取得
-const userStore = useUserStore()
+const userStore = useUserStore();
 // 転送処理を行うためのフック
-const $router = useRouter()
+const $router = useRouter();
 
 // フォームの設定
 const { handleSubmit, isSubmitting } = useForm({
@@ -18,28 +18,28 @@ const { handleSubmit, isSubmitting } = useForm({
     email(value: string) {
       // 必須
       if (!value) {
-        return 'メールアドレスを入力してください'
+        return "メールアドレスを入力してください";
       }
       // メールアドレスの形式
       const emailPattern =
-        /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
+        /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
       if (!emailPattern.test(value)) {
-        return 'メールアドレスの形式が正しくありません'
+        return "メールアドレスの形式が正しくありません";
       }
-      return true
+      return true;
     },
     password(value: string) {
       if (!value) {
-        return 'パスワードを入力してください'
+        return "パスワードを入力してください";
       }
-      return true
+      return true;
     },
   },
-})
+});
 // フィールドの値とエラーメッセージを取得
-const { value: email, errorMessage: emailErrorMessage } = useField('email')
+const { value: email, errorMessage: emailErrorMessage } = useField("email");
 const { value: password, errorMessage: passwordErrorMessage } =
-  useField('password')
+  useField("password");
 
 /**
  * サインイン処理
@@ -50,38 +50,40 @@ const onSubmit = handleSubmit(async () => {
     const { data } = await useFetch<SignInResponse>(
       `${apiBaseUrl}/auth/signin`,
       {
-        method: 'POST',
+        method: "POST",
         body: {
           email: email.value,
           password: password.value,
         },
       }
-    )
+    );
 
     // レスポンスのデータを取得（ref値）
-    const response = data.value
+    const response = data.value;
     // トークンの有無でログインできたか判断
-    const hasToken = response && !!response.token
+    const hasToken = response && !!response.token;
     if (hasToken) {
       // 成功の場合はトークンを保存
-      userStore.token = response.token
-      userStore.email = response.email
-      // トップページに遷移
-      $router.push('/')
+      userStore.token = response.token;
+      userStore.email = response.email;
+      // ローカルストレージにもトークンを保存
+      localStorage.setItem("userToken", response.token);
+      // メモ入力画面へ遷移
+      $router.push("/MemoInput");
     } else {
       // 失敗の場合はフィールドをクリア
-      email.value = ''
-      password.value = ''
+      email.value = "";
+      password.value = "";
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
 // ページのタイトルなどを設定
 useHead({
-  title: 'サインインページ',
-})
+  title: "サインインページ",
+});
 </script>
 
 <template>
@@ -105,12 +107,39 @@ useHead({
 <style lang="scss" scoped>
 h2 {
   font-size: 1.8rem;
+  margin-bottom: 20px;
   @media #{$pc} {
     font-size: 2.4rem;
   }
 }
 .error {
-  /* ~/assets/style/_variables.scssで定義した変数を使うことができます */
   color: $colorRed;
+}
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: 50px;
+
+  input {
+    margin-bottom: 8px;
+    height: 30px; // inputタグの縦幅を大きく
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  form {
+    display: flex; // フォーム全体をフレックスコンテナに
+    flex-direction: column; // 子要素を縦方向に並べる
+    align-items: center; // 子要素（ボタンを含む）を中央揃えに
+    width: 100%; // 必要に応じてフォームの幅を調整
+  }
+  button {
+    height: 40px; // 送信ボタンの縦サイズを大きく
+    width: 60px; // 送信ボタンの横サイズを大きく
+    font-size: 16px; // フォントサイズを大きく
+    margin-top: 8px; // ボタンの上部に余白を追加
+  }
 }
 </style>
