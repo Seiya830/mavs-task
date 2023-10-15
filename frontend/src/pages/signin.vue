@@ -124,22 +124,22 @@ div {
 
   input {
     margin-bottom: 8px;
-    height: 30px; // inputタグの縦幅を大きく
+    height: 30px;
     &:last-child {
       margin-bottom: 0;
     }
   }
   form {
-    display: flex; // フォーム全体をフレックスコンテナに
-    flex-direction: column; // 子要素を縦方向に並べる
-    align-items: center; // 子要素（ボタンを含む）を中央揃えに
-    width: 100%; // 必要に応じてフォームの幅を調整
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   button {
-    height: 40px; // 送信ボタンの縦サイズを大きく
-    width: 60px; // 送信ボタンの横サイズを大きく
-    font-size: 16px; // フォントサイズを大きく
-    margin-top: 8px; // ボタンの上部に余白を追加
+    height: 40px;
+    width: 60px;
+    font-size: 16px;
+    margin-top: 8px;
   }
 }
 </style>
