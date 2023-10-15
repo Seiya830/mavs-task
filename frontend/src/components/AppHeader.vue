@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useUserStore } from '~/store/user'
+import { useUserStore } from "~/store/user";
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -17,7 +17,8 @@ const userStore = useUserStore()
           <button type="button" @click="userStore.logout()">ログアウト</button>
         </div>
         <div v-else>
-          <NuxtLink to="/signin">サインイン</NuxtLink>
+          <NuxtLink to="/signin" class="signin">サインイン</NuxtLink>
+          <NuxtLink to="/">新規登録</NuxtLink>
         </div>
       </div>
     </div>
@@ -30,6 +31,12 @@ const userStore = useUserStore()
     display: flex;
     justify-content: space-between;
     align-content: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    .signin {
+      margin-right: 30px;
+    }
   }
 }
 </style>
