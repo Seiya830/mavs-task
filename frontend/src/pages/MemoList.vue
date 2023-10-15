@@ -130,11 +130,11 @@ onMounted(fetchMemos);
       <h3>メモ編集</h3>
       <!-- タイトルと本文の編集フォーム -->
       <label>
-        タイトル:
+        タイトル
         <input v-model="editingMemo.title" />
       </label>
       <label>
-        内容:
+        本文
         <textarea v-model="editingMemo.content"></textarea>
       </label>
       <button @click="saveEdit">保存</button>
@@ -151,25 +151,23 @@ onMounted(fetchMemos);
 }
 
 ul {
-  // メモリストを中央揃え
   margin: auto;
   max-width: 600px;
-  // ボーダーのスタイルを定義
+
   border-collapse: collapse;
   width: 100%;
   li {
-    // メモアイテムのボーダースタイル
     border: 1px solid #ccc;
     padding: 15px;
     list-style-type: none;
-    margin-bottom: 10px; // アイテム間にスペースを設ける
-    // タイトルのスタイル
+    margin-bottom: 10px;
+
     h2 {
       margin: 0 0 10px 0;
     }
-    // ボタンのスタイル
+
     button {
-      margin-right: 5px; // ボタン間にスペースを設ける
+      margin-right: 5px;
     }
   }
 }
@@ -179,13 +177,31 @@ ul {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 50px;
   padding: 20px;
   background-color: #ffffff;
   border: 1px solid #eeeeee;
   z-index: 1000;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input,
+  textarea {
+    display: block;
+    margin: 10px 0;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button {
+    margin: 0 10px;
+  }
 }
 
 div {
-  text-align: center; // 左右中央揃えを指定
+  text-align: center;
 }
 </style>
