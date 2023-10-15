@@ -1,8 +1,22 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive } from "vue";
+import { useUserStore } from "~/store/user";
 
 const $config = useRuntimeConfig();
 const apiBaseUrl = $config.public.apiBaseUrl;
+
+const router = useRouter();
+
+// ユーザーストアを取得
+const userStore = useUserStore();
+
+// ページがマウントされたときに実行
+onMounted(() => {
+  // ログインしていなければ、ログイン要求ページへリダイレクト
+  if (!userStore.isLoggedIn) {
+    router.push("/NeedSignin");
+  }
+});
 
 // メモのデータ構造を定義するインターフェイス
 interface Memo {
@@ -96,13 +110,13 @@ onMounted(fetchMemos);
 
 <template>
   <div>
-    <h2>メモ一覧ページ</h2>
+    <h2 class="memo-header">メモ一覧ページ</h2>
 
     <ul>
       <!-- メモのリストをループして表示 -->
       <li v-for="memo in memos" :key="memo.id">
-        <h2>{{ memo.title }}</h2>
-        <p>{{ memo.content }}</p>
+        <h2>タイトル: {{ memo.title }}</h2>
+        <p>本文: {{ memo.content }}</p>
         <!-- 編集ボタンをクリックするとstartEditing関数を実行し、メモの編集モードを開始する。引数としてループ中の`memo`オブジェクトを渡す。-->
         <button @click="() => startEditing(memo)">編集</button>
         <!-- 削除ボタンをクリックすると、該当のメモIDでdeleteMemo関数を実行 -->
@@ -126,12 +140,41 @@ onMounted(fetchMemos);
       <button @click="saveEdit">保存</button>
       <button @click="() => (isEditing = false)">キャンセル</button>
     </div>
+    <router-link to="/MemoInput">メモ入力画面へ</router-link>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.memo-header {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+ul {
+  // メモリストを中央揃え
+  margin: auto;
+  max-width: 600px;
+  // ボーダーのスタイルを定義
+  border-collapse: collapse;
+  width: 100%;
+  li {
+    // メモアイテムのボーダースタイル
+    border: 1px solid #ccc;
+    padding: 15px;
+    list-style-type: none;
+    margin-bottom: 10px; // アイテム間にスペースを設ける
+    // タイトルのスタイル
+    h2 {
+      margin: 0 0 10px 0;
+    }
+    // ボタンのスタイル
+    button {
+      margin-right: 5px; // ボタン間にスペースを設ける
+    }
+  }
+}
+
 .modal {
-  /* Modal styling */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -140,5 +183,9 @@ onMounted(fetchMemos);
   background-color: #ffffff;
   border: 1px solid #eeeeee;
   z-index: 1000;
+}
+
+div {
+  text-align: center; // 左右中央揃えを指定
 }
 </style>
