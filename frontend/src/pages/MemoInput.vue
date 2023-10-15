@@ -12,7 +12,7 @@ const userStore = useUserStore();
 
 // ページがマウントされたときに実行
 onMounted(() => {
-  // ログインしていなければ、エラーページへリダイレクト
+  // ログインしていなければ、ログイン要求ページへリダイレクト
   if (!userStore.isLoggedIn) {
     router.push("/NeedSignin");
   }
