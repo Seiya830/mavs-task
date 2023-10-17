@@ -65,6 +65,31 @@ class UserService {
 
     return resDataList;
   }
+
+  /**
+   * ユーザー新規登録
+   * 
+   * @param {string} username - ユーザー名
+   * @param {string} email - メールアドレス
+   * @param {string} password - パスワード
+   * @return {object} - 新しく作成されたユーザーの情報
+   */
+  async createUser(username, email, password) {
+    // パスワードをハッシュ化
+    const hashedPassword = authService.hashSha256(password);
+    // データベースに新しいユーザーを追加
+    const newUser = await db.Users.create({
+      name: username,
+      email,
+      password: hashedPassword
+    });
+    // 新しく作成されたユーザーの情報を返却
+    return {
+      id: newUser.dataValues.id,
+      name: newUser.dataValues.name, 
+      email: newUser.dataValues.email
+    };
+  }
 }
 
 export default UserService;

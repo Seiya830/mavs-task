@@ -3,7 +3,7 @@
     <h2>メモアプリ</h2>
     <div class="link-container">
       <nuxt-link to="/signin" class="link-button">サインイン</nuxt-link>
-      <nuxt-link to="/signup" class="link-button">新規登録</nuxt-link>
+      <nuxt-link to="/register" class="link-button">新規登録</nuxt-link>
     </div>
   </div>
 </template>
