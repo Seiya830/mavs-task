@@ -58,7 +58,8 @@ const saveMemo = async () => {
 </script>
 
 <template>
-  <div>
+  <!-- ユーザーがログインしている場合のみ内容を表示 -->
+  <div v-if="userStore.isLoggedIn">
     <form @submit.prevent="saveMemo">
       <p>タイトル</p>
       <input type="text" v-model="memoData.title" placeholder="メモタイトル" />

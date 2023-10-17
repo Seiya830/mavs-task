@@ -109,7 +109,8 @@ onMounted(fetchMemos);
 </script>
 
 <template>
-  <div>
+  <!-- ユーザーがログインしている場合のみ内容を表示 -->
+  <div v-if="userStore.isLoggedIn">
     <h2 class="memo-header">メモ一覧ページ</h2>
 
     <ul>
