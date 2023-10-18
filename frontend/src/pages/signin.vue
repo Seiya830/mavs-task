@@ -87,11 +87,13 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <div class="signin-box">
     <h2>サインイン</h2>
     <form @submit="onSubmit">
+      <label for="email">メールアドレス</label>
       <input v-model="email" name="email" type="email" />
       <p class="error">{{ emailErrorMessage }}</p>
+      <label for="password">パスワード</label>
       <input
         v-model="password"
         name="password"
@@ -107,39 +109,65 @@ useHead({
 <style lang="scss" scoped>
 h2 {
   font-size: 1.8rem;
+  text-align: center;
   margin-bottom: 20px;
   @media #{$pc} {
     font-size: 2.4rem;
   }
 }
+
 .error {
   color: $colorRed;
+  font-size: 1.4rem;
 }
-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  margin-top: 50px;
 
-  input {
-    margin-bottom: 8px;
-    height: 30px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+.signin-box {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
   form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
-  }
-  button {
-    height: 40px;
-    width: 60px;
-    font-size: 16px;
-    margin-top: 8px;
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #555;
+
+      &:focus {
+        border-color: #a0a0a0;
+        outline: none;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 15px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: #c6c6c6;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 </style>
