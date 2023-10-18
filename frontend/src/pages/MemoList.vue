@@ -121,7 +121,9 @@ onMounted(fetchMemos);
         <!-- 編集ボタンをクリックするとstartEditing関数を実行し、メモの編集モードを開始する。引数としてループ中の`memo`オブジェクトを渡す。-->
         <button @click="() => startEditing(memo)">編集</button>
         <!-- 削除ボタンをクリックすると、該当のメモIDでdeleteMemo関数を実行 -->
-        <button @click="() => deleteMemo(memo.id)">削除</button>
+        <button class="delete-button" @click="() => deleteMemo(memo.id)">
+          削除
+        </button>
       </li>
     </ul>
 
@@ -146,6 +148,13 @@ onMounted(fetchMemos);
 </template>
 
 <style lang="scss" scoped>
+.box-shadow {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
 .memo-header {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -155,10 +164,8 @@ ul {
   margin: auto;
   max-width: 600px;
 
-  border-collapse: collapse;
-  width: 100%;
   li {
-    border: 1px solid #ccc;
+    @extend .box-shadow;
     padding: 15px;
     list-style-type: none;
     margin-bottom: 10px;
@@ -169,7 +176,23 @@ ul {
 
     button {
       margin-right: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 3px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background-color: #0056b3;
+      }
     }
+  }
+}
+
+.delete-button {
+  background-color: #f44336;
+  &:hover {
+    background-color: #d32f2f;
   }
 }
 
@@ -180,13 +203,12 @@ ul {
   transform: translate(-50%, -50%);
   margin-top: 50px;
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #eeeeee;
   z-index: 1000;
   width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  @extend .box-shadow;
 
   input,
   textarea {
@@ -195,10 +217,10 @@ ul {
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  button {
-    margin: 0 10px;
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
   }
 }
 

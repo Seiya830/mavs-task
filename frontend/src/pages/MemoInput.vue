@@ -59,53 +59,75 @@ const saveMemo = async () => {
 
 <template>
   <!-- ユーザーがログインしている場合のみ内容を表示 -->
-  <div v-if="userStore.isLoggedIn">
+  <div v-if="userStore.isLoggedIn" class="memo-box">
     <form @submit.prevent="saveMemo">
       <p>タイトル</p>
       <input type="text" v-model="memoData.title" placeholder="メモタイトル" />
       <p>本文</p>
       <textarea v-model="memoData.content" placeholder="本文"></textarea>
-
       <button type="submit">追加</button>
     </form>
   </div>
 </template>
 
 <style lang="scss" scoped>
-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  margin-top: 50px;
+.memo-box {
+  width: 100%;
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 
-  input,
-  textarea {
-    margin-bottom: 8px;
-    height: 30px;
-    width: 70%;
-    max-width: 400px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  textarea {
-    height: 100px;
-  }
   form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-  }
-  button {
-    height: 40px;
-    width: 60px;
-    font-size: 16px;
-    margin-top: 8px;
-  }
-  p {
-    margin: 4px 0;
+
+    p {
+      margin: 4px 0;
+      font-weight: 500;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #555;
+
+      &:focus {
+        border-color: #a0a0a0;
+        outline: none;
+      }
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 15px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
   }
 }
 </style>

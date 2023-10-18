@@ -64,15 +64,15 @@ export default defineComponent({
     <h2>新規登録</h2>
     <form @submit.prevent="register">
       <div class="input-group">
-        <label for="name">ユーザー名:</label>
+        <label for="name">ユーザー名</label>
         <input type="text" v-model="username" id="name" required />
       </div>
       <div class="input-group">
-        <label for="email">メールアドレス:</label>
+        <label for="email">メールアドレス</label>
         <input type="email" v-model="email" id="email" required />
       </div>
       <div class="input-group">
-        <label for="password">パスワード:</label>
+        <label for="password">パスワード</label>
         <input type="password" v-model="password" id="password" required />
       </div>
       <button type="submit">登録</button>
@@ -80,6 +80,69 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped>
-/* 必要に応じてスタイルを追加 */
+<style lang="scss" scoped>
+.register-page {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  form {
+    .input-group {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #555;
+
+        &:focus {
+          border-color: #a0a0a0;
+          outline: none;
+        }
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 15px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: #c6c6c6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
 </style>
