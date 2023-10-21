@@ -27,9 +27,18 @@ export const useUserStore = defineStore('user', {
      * ログイン
      */
     login({ token, email }: State) {
-      this.token = token
-      this.email = email
+      this.token = token;
+      this.email = email;
+      localStorage.setItem("userToken", token);
+      localStorage.setItem("userEmail", email);
     },
+
+    /**
+     * トークンの更新
+     */
+    updateToken(newToken: string) {
+      this.token = newToken
+    }
   },
 
   getters: {
