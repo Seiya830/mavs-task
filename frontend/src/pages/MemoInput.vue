@@ -12,7 +12,15 @@ const userStore = useUserStore();
 
 // ページがマウントされたときに実行
 onMounted(() => {
-  // ログインしていなければ、ログイン要求ページへリダイレクト
+  // ローカルストレージからユーザートークンを取得
+  const storedToken = localStorage.getItem("userToken");
+
+  // トークンが存在すれば、それをユーザーストアに更新
+  if (storedToken) {
+    userStore.updateToken(storedToken);
+  }
+
+  // ユーザーがログインしていない場合、'NeedSignin'ページへリダイレクト
   if (!userStore.isLoggedIn) {
     router.push("/NeedSignin");
   }
