@@ -1,7 +1,24 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { useUserStore } from "~/store/user";
 
+// ユーザーの状態・データを管理するストアを取得
 const userStore = useUserStore();
+
+// ページがマウントされたときに実行
+onMounted(() => {
+  // localStorageからユーザーのメールアドレスとトークンを取得
+  const storedEmail = localStorage.getItem("userEmail");
+  const storedToken = localStorage.getItem("userToken");
+
+  // メールアドレスとトークンが存在する場合
+  if (storedEmail && storedToken) {
+    // ユーザーストアのメールアドレスを更新
+    userStore.email = storedEmail;
+    // ユーザーストアのトークンを更新する関数を実行
+    userStore.updateToken(storedToken);
+  }
+});
 </script>
 
 <template>
