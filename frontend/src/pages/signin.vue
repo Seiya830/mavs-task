@@ -66,8 +66,9 @@ const onSubmit = handleSubmit(async () => {
       // 成功の場合はトークンを保存
       userStore.token = response.token;
       userStore.email = response.email;
-      // ローカルストレージにもトークンを保存
+      // ローカルストレージにもトークンとメールアドレスを保存
       localStorage.setItem("userToken", response.token);
+      localStorage.setItem("userEmail", response.email);
       // メモ入力画面へ遷移
       $router.push("/MemoInput");
     } else {
