@@ -47,8 +47,8 @@ onMounted(() => {
   &__inner {
     display: flex;
     justify-content: space-between;
-    align-content: center;
-    margin-top: 10px;
+    align-items: center;
+    padding-top: 10px;
     margin-right: 10px;
     margin-left: 10px;
     .signin {
