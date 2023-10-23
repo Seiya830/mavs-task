@@ -21,7 +21,9 @@ export const useUserStore = defineStore('user', {
      * ログアウト
      */
     logout() {
-      this.$reset()
+      this.$reset();
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userEmail");
     },
     /**
      * ログイン
