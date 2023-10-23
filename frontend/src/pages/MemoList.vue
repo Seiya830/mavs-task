@@ -147,8 +147,10 @@ onMounted(fetchMemos);
         本文
         <textarea v-model="editingMemo.content"></textarea>
       </label>
-      <button @click="saveEdit">保存</button>
-      <button @click="() => (isEditing = false)">キャンセル</button>
+      <div class="buttons-container">
+        <button @click="saveEdit">保存</button>
+        <button @click="() => (isEditing = false)">キャンセル</button>
+      </div>
     </div>
     <router-link to="/MemoInput">メモ入力画面へ</router-link>
   </div>
@@ -208,26 +210,69 @@ ul {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-top: 50px;
+  width: 450px;
   padding: 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @extend .box-shadow;
 
-  input,
-  textarea {
+  h3 {
+    margin-bottom: 15px;
+  }
+
+  label {
     display: block;
-    margin: 10px 0;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    margin-bottom: 10px;
+
+    & > input,
+    & > textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #555;
+
+      &:focus {
+        border-color: #a0a0a0;
+        outline: none;
+      }
+    }
+
+    & > textarea {
+      height: 100px;
+      resize: vertical;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+
+    button {
+      margin: 0 10px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:last-of-type {
+        background-color: #9e9e9e;
+
+        &:hover {
+          background-color: #7d7d7d;
+        }
+      }
+    }
   }
 }
 
